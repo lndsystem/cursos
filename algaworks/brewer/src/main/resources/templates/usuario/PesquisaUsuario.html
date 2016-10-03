@@ -71,6 +71,7 @@
 						<th>
 							<brewer:order page="${pagina}" field="email" text="E-mail"/> 
 						</th>
+						<th>Grupo</th>
 						<th>Status</th>						
 						<th class="table-col-acoes"></th>
 					</tr>
@@ -80,6 +81,9 @@
 					<tr th:each="usuario : ${pagina.conteudo}">
 						<td th:text="${usuario.nome}">Administrador</td>
 						<td th:text="${usuario.email}">admin@brewer.com.br</td>
+						<td>
+							<span th:each="grupo : ${usuario.grupos}" th:text=${grupo.nome}></span>
+						</td>
 						<td th:text="${usuario.ativo} ? Ativo : Inativo">True</td>
 						<td class="text-center">
 							<a class="btn  btn-link  btn-xs" title="Editar"> 
