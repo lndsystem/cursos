@@ -4,6 +4,7 @@ import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.algaworks.brewer.config.JPAConfig;
@@ -27,18 +28,23 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
-	
+
 	@Override
 	protected Filter[] getServletFilters() {
-		//Com a segurança ativada, a codificação de caracteres deve ficar na segurança
-//		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-//        characterEncodingFilter.setEncoding("UTF-8");
-//        characterEncodingFilter.setForceEncoding(true);
-//		
-//        return new Filter[] { characterEncodingFilter };
-		return new Filter[] { };
+		// Com a segurança ativada, a codificação de caracteres deve ficar na
+		// segurança
+		// CharacterEncodingFilter characterEncodingFilter = new
+		// CharacterEncodingFilter();
+		// characterEncodingFilter.setEncoding("UTF-8");
+		// characterEncodingFilter.setForceEncoding(true);
+		//
+		// return new Filter[] { characterEncodingFilter };
+
+		//Para receber parametros via put
+		HttpPutFormContentFilter httpPutFormContentFilter = new HttpPutFormContentFilter();
+		return new Filter[] { httpPutFormContentFilter };
 	}
-	
+
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
 		registration.setMultipartConfig(new MultipartConfigElement(""));
