@@ -71,7 +71,7 @@ public class UsuariosController {
 
 	@RequestMapping
 	public ModelAndView pesquisa(UsuarioFilter usuarioFilter, BindingResult result,
-			@PageableDefault(size = 100) Pageable pageable, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuario");
 
 		PageWrapper<Usuario> pageWrapper = new PageWrapper<>(usuarios.filtrar(usuarioFilter, pageable),
