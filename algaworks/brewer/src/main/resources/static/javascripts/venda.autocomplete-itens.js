@@ -24,6 +24,11 @@ Brewer.Autocomplete = (function() {
 					cerveja.valorFormatado = Brewer.formatarMoeda(cerveja.valor);
 					return this.template(cerveja);
 				}.bind(this)
+			},
+			list: {
+				onChooseEvent: function() {
+					console.log('selecionou um item');
+				}
 			}
 		};
 		
@@ -33,7 +38,3 @@ Brewer.Autocomplete = (function() {
 	return Autocomplete;
 })();
 
-$(function() {
-	var autoComplete = new Brewer.Autocomplete();
-	autoComplete.iniciar();
-});
