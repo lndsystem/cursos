@@ -1,6 +1,7 @@
 Brewer.TabelaItens = (function() {
 	function TabelaItens(autocomplete) {
 		this.autocomplete = autocomplete;
+		this.tabelaCervejasContainer = $('.js-tabela-cervejas-container');
 	}
 	
 	TabelaItens.prototype.iniciar = function() {
@@ -16,10 +17,28 @@ Brewer.TabelaItens = (function() {
 			}
 		});
 		
-		resposta.done(function(data) {
-			console.log('retorno', data);
+		resposta.done(onItemAtualizadoNoServidor.bind(this));
+	}
+	
+	function onItemAtualizadoNoServidor(html) {
+		this.tabelaCervejasContainer.html(html);		
+		$('.js-tabela-cerveja-quantidade-item').on('change', onQuantidadeItemAlterado.bind(this));
+	}
+	
+	function onQuantidadeItemAlterado(evento) {
+		var input = $(evento.target);
+		var quantidade = input.val();
+		var codigoCerveja = input.data('codigo-cerveja');
+		
+		var resposta = $.ajax({
+			url: 'item/' + codigoCerveja,
+			method: 'PUT',
+			data: {
+				quantidade: quantidade
+			}
 		});
-		//console.log('Item recebido do autocomplete', item);
+		
+		resposta.done(onItemAtualizadoNoServidor.bind(this));
 	}
 	
 	return TabelaItens;
