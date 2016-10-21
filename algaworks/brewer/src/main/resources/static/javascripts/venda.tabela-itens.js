@@ -24,6 +24,7 @@ Brewer.TabelaItens = (function() {
 		this.tabelaCervejasContainer.html(html);		
 		$('.js-tabela-cerveja-quantidade-item').on('change', onQuantidadeItemAlterado.bind(this));
 		$('.js-tabela-item').on('dblclick', onDoubleClick);
+		$('.js-tabela-item').doubletap(onDoubleClick);
 		$('.js-exclusao-item-btn').on('click', onExclusaoItemClick.bind(this));
 	}
 	
