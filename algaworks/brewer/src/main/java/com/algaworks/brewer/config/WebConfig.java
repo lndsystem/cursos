@@ -114,8 +114,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		// API de Datas do Java 8
 		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
 		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
 		dateTimeFormatter.registerFormatters(conversionService);
-		
+
 		return conversionService;
 	}
 
@@ -134,15 +135,15 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
 		return cacheManager;
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
 		bundle.setBasename("classpath://messages");
-		bundle.setDefaultEncoding("UTF-8"); //http://www.utf8-chartable.de
+		bundle.setDefaultEncoding("UTF-8"); // http://www.utf8-chartable.de
 		return bundle;
 	}
-	
+
 	/* Serve para poder converter o código em objeto (findOne) */
 	@Bean
 	public DomainClassConverter<?> domainClassConverter() {
