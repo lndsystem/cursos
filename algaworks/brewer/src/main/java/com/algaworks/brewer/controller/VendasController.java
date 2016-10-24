@@ -2,11 +2,17 @@ package com.algaworks.brewer.controller;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+
+import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.brewer.controller.validator.VendaValidator;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Cervejas;
@@ -34,23 +41,34 @@ public class VendasController {
 	@Autowired
 	private CadastroVendaService cadastroVendaService;
 
+	@Autowired
+	private VendaValidator vendaValidator;
+
+	@InitBinder
+	public void inicializarValidador(WebDataBinder binder) {
+		binder.setValidator(vendaValidator);
+	}
+
 	@RequestMapping("/nova")
 	public ModelAndView nova(Venda venda) {
 		ModelAndView mv = new ModelAndView("/venda/CadastroVenda");
-		venda.setUuid(UUID.randomUUID().toString());
-
+		if (StringUtils.isEmpty(venda.getUuid())) {
+			venda.setUuid(UUID.randomUUID().toString());
+		}
 		return mv;
 	}
 
 	@PostMapping("/nova")
-	public ModelAndView salvar(Venda venda, RedirectAttributes attributes, BindingResult result,
+	public ModelAndView salvar(@Valid Venda venda, RedirectAttributes attributes, BindingResult result,
 			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
-		ModelAndView mv = new ModelAndView();
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
 
 		venda.setUsuario(usuarioSistema.getUsuario());
 		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
 
-		cadastroVendaService.salva(venda);		
+		cadastroVendaService.salva(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
