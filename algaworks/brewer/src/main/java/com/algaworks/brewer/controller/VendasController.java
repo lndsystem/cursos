@@ -2,9 +2,6 @@ package com.algaworks.brewer.controller;
 
 import java.util.UUID;
 
-import javax.validation.Valid;
-
-import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,18 +53,25 @@ public class VendasController {
 		if (StringUtils.isEmpty(venda.getUuid())) {
 			venda.setUuid(UUID.randomUUID().toString());
 		}
+		mv.addObject("itens", venda.getItens());
+		mv.addObject("valorFrete", venda.getValorFrete());
+		mv.addObject("valorDesconto", venda.getValorDesconto());
+		mv.addObject("valorTotalItens", tabelaItens.getValorTotal(venda.getUuid()));
 		return mv;
 	}
 
-	@PostMapping("/nova")
-	public ModelAndView salvar(@Valid Venda venda, RedirectAttributes attributes, BindingResult result,
+	@RequestMapping(value = "/nova", method = RequestMethod.POST)
+	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes,
 			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
+		venda.calcularValorTotal();
+
+		vendaValidator.validate(venda, result);
 		if (result.hasErrors()) {
 			return nova(venda);
 		}
 
 		venda.setUsuario(usuarioSistema.getUsuario());
-		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
 
 		cadastroVendaService.salva(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
@@ -89,7 +94,7 @@ public class VendasController {
 		return mvTabelaItensVenda(uuid);
 	}
 
-	@DeleteMapping("/item/{uudi}/{codigoCerveja}")
+	@DeleteMapping("/item/{uuid}/{codigoCerveja}")
 	public ModelAndView excluirItem(@PathVariable("codigoCerveja") Cerveja cerveja, @PathVariable String uuid) {
 		tabelaItens.excluirItem(uuid, cerveja);
 

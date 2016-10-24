@@ -191,6 +191,12 @@
 	content: "\f00c";
 }
 
+.has-error .input-group-btn .btn.btn-default {
+	color: #a94442;
+	border-color: #a94442;
+	background-color: #f2dede;
+}
+
 /* Easy Autocomplete */
 .easy-autocomplete input {
 	border-radius: 2px !important;
