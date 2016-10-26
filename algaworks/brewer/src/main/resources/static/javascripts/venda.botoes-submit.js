@@ -12,16 +12,19 @@ Brewer.BotaoSubmit = (function (){
 	}
 	
 	function onSubmit(evento) {
-		//serve para parar o evento
-		evento.preventDefault();
+		//serve para parar o evento				 
+		 evento.preventDefault();
 		
 		var botaoClicado = $(evento.target);
 		var acao = botaoClicado.data('acao');
 		var acaoInput = $('<input>');
-		acaoInput.attr('nome', acao);
+		acaoInput.attr('name', acao);
+		acaoInput.attr('hidden', 'hidden');
+		
+		console.log('>>>>>> ', acao);
 		
 		this.formulario.append(acaoInput);
-		this.formulario.submit();
+		this.formulario.submit();			
 	}
 	
 	return BotaoSubmit;

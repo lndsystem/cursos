@@ -19,10 +19,7 @@ public class CadastroVendaService {
 
 	@Transactional
 	public void salva(Venda venda) {
-		if (venda.isNova()) {
-			venda.setDataCriacao(LocalDateTime.now());
-		}
-
+		dataCriacao(venda);
 		if (venda.getDataEntrega() != null) {
 			venda.setDataHoraEntrega(LocalDateTime.of(venda.getDataEntrega(),
 					venda.getHoraEntrega() != null ? venda.getHoraEntrega() : LocalTime.NOON));
@@ -33,9 +30,16 @@ public class CadastroVendaService {
 
 	@Transactional
 	public void emitir(Venda venda) {
+		dataCriacao(venda);
 		venda.setStatus(StatusVenda.EMITIDO);
 		vendas.save(venda);
 
+	}
+
+	private void dataCriacao(Venda venda) {
+		if (venda.isNova()) {
+			venda.setDataCriacao(LocalDateTime.now());
+		}
 	}
 
 }
