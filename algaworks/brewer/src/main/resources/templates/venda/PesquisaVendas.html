@@ -32,9 +32,47 @@
 	<div class="container-fluid">
 		<form method="GET" th:object="${vendaFilter}">
 			<div class="row">
-				<div class="form-group  col-sm-12">
-					<label class="control-label" for="nome">Estilo</label>
-					<input type="text" class="form-control" id="estilo" autofocus="autofocus"/>
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="codigo">Código</label>
+					<input type="text" class="form-control" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
+				</div>
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="status">Status</label>
+					<select class="form-control" id="status" th:field="*{status}">
+						<option value="">Todos os status</option>
+						<option th:each="val : ${status}" th:value="${val}" th:text="${val.descricao}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6  form-group">
+					<label class="control-label" for="dataDe">Data de criação</label>
+					<div class="form-inline">
+						<input type="text" id="dataDe" class="form-control  aw-form-control-inline-sm  js-date" th:field="*{desde}"/>
+						<label for="dataAte" class="aw-form-label-between">até</label>
+						<input type="text" id="dataAte" class="form-control  aw-form-control-inline-sm  js-date" th:field="*{ate}"/>
+					
+					</div>
+				</div>
+				
+				<div class="col-sm-6  form-group">
+					<label class="control-label" for="valorDe">Valor total</label>
+					<div class="form-inline">
+						<input type="text" id="valorDe" class="form-control  aw-form-control-inline-sm  js-decimal" th:field="*{valorMinimo}"/>
+						<label class="aw-form-label-between" for="valorAte">até</label>
+						<input type="text" id="valorAte" class="form-control  aw-form-control-inline-sm  js-decimal" th:field="*{valorMaximo}"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6  form-group">
+					<label class="control-label" for="nomeCliente">Nome cliente</label>
+					<input class="form-control  col-sm-6" id="nomeCliente" th:field="*{nomeCliente}"/>
+				</div>
+				
+				<div class="col-sm-6  form-group">
+					<label class="control-label" for="cpfOuCnpj">CPF/CNPJ</label>
+					<input class="form-control  col-sm-6  js-cpfOuCnpj-pesquisa" id="cpfOuCnpj" th:field="*{cpfOuCnpj}">
 				</div>
 			</div>
 			
