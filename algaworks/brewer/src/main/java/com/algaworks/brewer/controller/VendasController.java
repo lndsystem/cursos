@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,13 +59,40 @@ public class VendasController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/nova", method = RequestMethod.POST)
+	@PostMapping(value = "/nova", params = "salvar")
 	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes,
 			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
-		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
-		venda.calcularValorTotal();
+		validarVenda(venda, result);
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
 
-		vendaValidator.validate(venda, result);
+		venda.setUsuario(usuarioSistema.getUsuario());
+
+		cadastroVendaService.salva(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
+		return new ModelAndView("redirect:/vendas/nova");
+	}
+
+	@PostMapping(value = "/nova", params = "emitir")
+	public ModelAndView emitir(Venda venda, BindingResult result, RedirectAttributes attributes,
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		validarVenda(venda, result);
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
+
+		venda.setUsuario(usuarioSistema.getUsuario());
+
+		cadastroVendaService.emitir(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
+		return new ModelAndView("redirect:/vendas/nova");
+	}
+
+	@PostMapping(value = "/nova", params = "enviarEmail")
+	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes,
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		validarVenda(venda, result);
 		if (result.hasErrors()) {
 			return nova(venda);
 		}
@@ -106,5 +132,12 @@ public class VendasController {
 		mv.addObject("itens", tabelaItens.getItens(uuid));
 		mv.addObject("valorTotal", tabelaItens.getValorTotal(uuid));
 		return mv;
+	}
+
+	private void validarVenda(Venda venda, BindingResult result) {
+		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
+		venda.calcularValorTotal();
+
+		vendaValidator.validate(venda, result);
 	}
 }
