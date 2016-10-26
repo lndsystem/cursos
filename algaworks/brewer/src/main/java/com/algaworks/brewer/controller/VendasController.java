@@ -2,13 +2,18 @@ package com.algaworks.brewer.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.controller.validator.VendaValidator;
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Cervejas;
+import com.algaworks.brewer.repository.Vendas;
+import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.security.UsuarioSistema;
 import com.algaworks.brewer.service.CadastroVendaService;
 import com.algaworks.brewer.session.TabelaItensSession;
@@ -41,7 +50,10 @@ public class VendasController {
 	@Autowired
 	private VendaValidator vendaValidator;
 
-	@InitBinder
+	@Autowired
+	private Vendas vendas;
+
+	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
 		binder.setValidator(vendaValidator);
 	}
@@ -125,6 +137,17 @@ public class VendasController {
 		tabelaItens.excluirItem(uuid, cerveja);
 
 		return mvTabelaItensVenda(uuid);
+	}
+
+	@GetMapping
+	public ModelAndView pesquisar(VendaFilter vendaFilter, @PageableDefault(size = 3) Pageable pageable,
+			HttpServletRequest httpServletRequest, BindingResult result) {
+		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");
+		mv.addObject("status", StatusVenda.values());
+
+		PageWrapper<Venda> paginaWrapper = new PageWrapper<>(vendas.filtrar(vendaFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
 	}
 
 	private ModelAndView mvTabelaItensVenda(String uuid) {
