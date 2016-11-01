@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "venda")
@@ -191,15 +190,17 @@ public class Venda {
 		this.itens = itens;
 		this.itens.forEach(i -> i.setVenda(this));
 	}
-	
-	public void calcularValorTotal() {
-		BigDecimal valorTotalItens = getItens().stream()
-				.map(ItemVenda::getValorTotal)
-				.reduce(BigDecimal::add)
-				.orElse(BigDecimal.ZERO);
-		this.valorTotal = calcularValorTotal(valorTotalItens, getValorFrete(), getValorDesconto()); 
+
+	public BigDecimal getValorTotalItens() {
+		return getItens().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+
 	}
-	
+
+	public void calcularValorTotal() {
+		BigDecimal valorTotalItens = getValorTotalItens();
+		this.valorTotal = calcularValorTotal(valorTotalItens, getValorFrete(), getValorDesconto());
+	}
+
 	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
 		BigDecimal valorTotal = valorTotalItens.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
