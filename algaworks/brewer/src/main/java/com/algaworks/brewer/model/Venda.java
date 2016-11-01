@@ -34,10 +34,10 @@ public class Venda {
 	private LocalDateTime dataCriacao;
 
 	@Column(name = "valor_frete")
-	private BigDecimal valorFrete;
+	private BigDecimal valorFrete = new BigDecimal("0.00");
 
 	@Column(name = "valor_desconto")
-	private BigDecimal valorDesconto;
+	private BigDecimal valorDesconto = new BigDecimal("0.00");
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal = new BigDecimal("0.00");

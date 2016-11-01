@@ -1,11 +1,16 @@
 package com.algaworks.brewer.mail;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +23,7 @@ import org.thymeleaf.context.Context;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.ItemVenda;
 import com.algaworks.brewer.model.Venda;
+import com.algaworks.brewer.storage.FotoStorage;
 
 @Component
 public class Mailer {
@@ -30,19 +36,29 @@ public class Mailer {
 	@Autowired
 	private TemplateEngine thymeleaf;
 
+	@Autowired
+	private FotoStorage fotoStorage;
+
 	@Async
 	public void enviar(Venda venda) {
 
-		Context context = new Context();
+		Context context = new Context(new Locale("pt", "BR"));
 		context.setVariable("venda", venda);
 		context.setVariable("logo", "logo");
-		
-		for(ItemVenda item : venda.getItens()){
-			Cerveja cerveja = item.getCerveja();
-//			String variavelCid = "foto-" + cerveja.getf
-//			context.setVariable(name, value);
-		}
 
+		Map<String, String> fotos = new HashMap<>();
+		boolean adicionarMockCerveja = false;
+		for (ItemVenda item : venda.getItens()) {
+			Cerveja cerveja = item.getCerveja();
+			if (cerveja.temFoto()) {
+				String cid = "foto-" + cerveja.getCodigo();
+				context.setVariable(cid, cid);
+				fotos.put(cid, String.format("%s|%s", cerveja.getFoto(), cerveja.getContentType()));
+			} else {
+				adicionarMockCerveja = true;
+				context.setVariable("mockCerveja", "mockCerveja");
+			}
+		}
 
 		try {
 			String email = thymeleaf.process("mail/ResumoVenda", context);
@@ -50,10 +66,22 @@ public class Mailer {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setFrom("leandroces@hotmail.com");
 			helper.setTo(venda.getCliente().getEmail());
-			helper.setSubject("Brewer - Venda Realizada");
+			helper.setSubject(String.format("Brewer - Venda nº %d", venda.getCodigo()));
 			helper.setText(email, true);
-			
+
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
+
+			for (String cid : fotos.keySet()) {
+				String foto = fotos.get(cid).split("\\|")[0];
+				String contentType = fotos.get(cid).split("\\|")[1];
+
+				byte[] arrayFoto = fotoStorage.recuperarThumbnail(foto);
+				helper.addInline(cid, new ByteArrayResource(arrayFoto), contentType);
+			}
+
+			if (adicionarMockCerveja) {
+				helper.addInline("mockCerveja", new ClassPathResource("static/images/mock-cerveja.png"));
+			}
 
 			mailSender.send(mimeMessage);
 		} catch (MessagingException e) {
