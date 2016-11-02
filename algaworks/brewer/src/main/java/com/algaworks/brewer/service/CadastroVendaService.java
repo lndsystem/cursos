@@ -18,7 +18,7 @@ public class CadastroVendaService {
 	private Vendas vendas;
 
 	@Transactional
-	public Venda salva(Venda venda) {
+	public Venda salvar(Venda venda) {
 		dataCriacao(venda);
 		if (venda.getDataEntrega() != null) {
 			venda.setDataHoraEntrega(LocalDateTime.of(venda.getDataEntrega(),
