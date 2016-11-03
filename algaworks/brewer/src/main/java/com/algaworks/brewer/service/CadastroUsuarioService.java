@@ -35,11 +35,15 @@ public class CadastroUsuarioService {
 
 		if (usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha())) {
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-		}else if(StringUtils.isEmpty(usuario.getSenha())){
+		} else if (StringUtils.isEmpty(usuario.getSenha())) {
 			usuario.setSenha(usuarioOptional.get().getSenha());
 		}
 		usuario.setConfirmacaoSenha(usuario.getSenha());
-		
+
+		if (!usuario.isNovo() && usuario.getAtivo() == null) {
+			usuario.setAtivo(usuarioOptional.get().getAtivo());
+		}
+
 		return usuarios.save(usuario);
 	}
 

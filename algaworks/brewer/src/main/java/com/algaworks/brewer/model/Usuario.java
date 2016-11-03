@@ -61,7 +61,7 @@ public class Usuario implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	List<Grupo> grupos;
-	
+
 	@PreUpdate
 	private void preUpdate() {
 		this.confirmacaoSenha = senha;
@@ -130,13 +130,9 @@ public class Usuario implements Serializable {
 	public void setConfirmacaoSenha(String confirmacaoSenha) {
 		this.confirmacaoSenha = confirmacaoSenha;
 	}
-	
+
 	public boolean isNovo() {
 		return codigo == null;
-	}
-	
-	public boolean isEdicao() {
-		return codigo != null;
 	}
 
 	@Override
