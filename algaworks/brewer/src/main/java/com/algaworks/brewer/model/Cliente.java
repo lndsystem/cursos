@@ -60,15 +60,19 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
-	
-	@PrePersist @PreUpdate
+
+	@PrePersist
+	@PreUpdate
 	private void prePersistPreUpdate() {
 		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
 	}
-	
+
 	@PostLoad
 	private void postLoad() {
 		this.cpfOuCnpj = this.tipoPessoa.formatar(this.cpfOuCnpj);
+		if (this.getEndereco() != null && this.getEndereco().getCidade() != null) {
+			this.getEndereco().setEstado(this.getEndereco().getCidade().getEstado());
+		}
 	}
 
 	public Long getCodigo() {
@@ -126,9 +130,13 @@ public class Cliente implements Serializable {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	public String getCpfOuCnpjSemFormatacao() {
 		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
+
+	public boolean isNovo() {
+		return this.codigo == null;
 	}
 
 	@Override

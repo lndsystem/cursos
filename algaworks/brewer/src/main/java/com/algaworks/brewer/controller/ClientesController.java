@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +31,7 @@ import com.algaworks.brewer.repository.Estados;
 import com.algaworks.brewer.repository.filter.ClienteFilter;
 import com.algaworks.brewer.service.CadastroClienteService;
 import com.algaworks.brewer.service.exception.CpfCnpjClienteJaCadastradoException;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 
 @Controller
 @RequestMapping("/clientes")
@@ -79,6 +82,24 @@ public class ClientesController {
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Cliente cliente){
+		cliente = clientes.pesquisarClienteEditar(cliente);		
+		ModelAndView mv = novo(cliente);
+		mv.addObject(cliente);
+		return mv;
+	}
+	
+	@DeleteMapping("/{codigo}")
+	public ResponseEntity<?> exclir(@PathVariable("codigo") Cliente cliente){
+		try{
+			cadastroClienteService.excluir(cliente);
+		}catch (ImpossivelExcluirEntidadeException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
 
 	@RequestMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody List<Cliente> pesquisar(String nome) {
@@ -86,15 +107,15 @@ public class ClientesController {
 		return clientes.findByNomeStartingWithIgnoreCase(nome);
 	}
 
-	private void validarTamanhoNome(String nome) {
-		if (StringUtils.isEmpty(nome) || nome.length() < 3) {
-			throw new IllegalArgumentException();
-		}
-	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<Void> tratarIllegalArgumentException(IllegalArgumentException e) {
 		return ResponseEntity.badRequest().build();
 	}
 
+	private void validarTamanhoNome(String nome) {
+		if (StringUtils.isEmpty(nome) || nome.length() < 3) {
+			throw new IllegalArgumentException();
+		}
+	}
 }

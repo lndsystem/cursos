@@ -10,4 +10,5 @@ public interface EstilosQueries {
 	
 	public Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable);
 	
+	
 }

@@ -16,7 +16,8 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-10">
-					<h1>Cadastro de cliente</h1>
+					<h1 th:if="${cliente.novo}">Cadastro de cliente</h1>
+					<h1 th:unless="${cliente.novo}">Alterando o cliente [[${cliente.nome}]]</h1>
 				</div>
 			
 				<div class="col-xs-2">
@@ -34,6 +35,7 @@
 		<form method="POST" th:object="${cliente}" th:action="@{/clientes/novo}">
 			<brewer:message/>
 			
+			<input type="hidden" th:field="*{codigo}" />
 			<div class="row">
 				<div class="form-group  col-sm-12  bw-required" brewer:classforerror="nome">
 					<label for="nome" class="control-label">Nome</label>

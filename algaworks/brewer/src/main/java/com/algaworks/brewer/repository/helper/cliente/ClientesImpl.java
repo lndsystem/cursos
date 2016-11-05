@@ -24,24 +24,24 @@ public class ClientesImpl implements ClientesQueries {
 
 	@PersistenceContext
 	private EntityManager manager;
-	
+
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Cliente> filtrar(ClienteFilter filtro, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
-		
+
 		paginacaoUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
 		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
-				
+
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
-	
+
 	private Long total(ClienteFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
 		adicionarFiltro(filtro, criteria);
@@ -59,6 +59,16 @@ public class ClientesImpl implements ClientesQueries {
 				criteria.add(Restrictions.eq("cpfOuCnpj", filtro.getCpfOuCnpjSemFormatacao()));
 			}
 		}
+	}
+
+	@Transactional
+	@Override
+	public Cliente pesquisarClienteEditar(Cliente cliente) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
+		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", cliente.getCodigo()));
+		return (Cliente) criteria.uniqueResult();
 	}
 
 }

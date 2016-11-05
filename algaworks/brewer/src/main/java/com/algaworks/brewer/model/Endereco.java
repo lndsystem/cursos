@@ -26,7 +26,7 @@ public class Endereco implements Serializable {
 	
 	@Transient
 	private Estado estado;
-
+	
 	public String getLogradouro() {
 		return logradouro;
 	}

@@ -14,7 +14,8 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-10">
-					<h1>Cadastro estilos</h1>
+					<h1 th:if="${estilo.novo}">Cadastro estilos</h1>
+					<h1 th:unless="${estilo.novo}">Alterando o estilo [[${estilo.nome}]]</h1>
 				</div>
 				
 				<div class="col-xs-2">
@@ -29,10 +30,10 @@
 	</div>
 	
 	<div class="container-fluid">
-		<th:block th:include="fragments/MensagemSucesso"></th:block>
 	
 		<form method="POST" th:object="${estilo}" th:action="@{/estilos/novo}">
-			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+			<brewer:message/>
+			<input type="hidden" th:field="*{codigo}"/>
 			
 			<div class="row">
 				<div class="form-group  col-sm-12  bw-required" th:classappend="${#fields.hasErrors('nome')} ? has-error">

@@ -60,4 +60,14 @@ public class CidadesImpl implements CidadesQueries {
 		}
 	}
 
+	@Transactional
+	@Override
+	public Cidade pesquisarCidadeComEstado(Cidade cidade) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
+		criteria.createAlias("estado", "e", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", cidade.getCodigo()));
+		
+		return (Cidade) criteria.uniqueResult();
+	}
+
 }
