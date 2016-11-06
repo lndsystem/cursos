@@ -1,7 +1,11 @@
 package com.algaworks.brewer.repository.helper.venda;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.Year;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
@@ -74,13 +79,6 @@ public class VendasImpl implements VendasQueries {
 		}
 	}
 
-	private Long total(VendaFilter filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
-		adicionarFiltro(filtro, criteria);
-		criteria.setProjection(Projections.rowCount());
-		return (Long) criteria.uniqueResult();
-	}
-
 	@Transactional(readOnly = true)
 	@Override
 	public Venda buscarComItens(Long codigo) {
@@ -91,4 +89,48 @@ public class VendasImpl implements VendasQueries {
 		return (Venda) criteria.uniqueResult();
 	}
 
+	@Override
+	public BigDecimal valorTotalNoAno() {
+		Optional<BigDecimal> optional = Optional.ofNullable(manager
+				.createQuery("select sum(valorTotal) from Venda where year(dataCriacao) = :ano and status = :status",
+						BigDecimal.class)
+				.setParameter("status", StatusVenda.EMITIDO).setParameter("ano", Year.now().getValue())
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+
+	private Long total(VendaFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
+		adicionarFiltro(filtro, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+
+	@Override
+	public BigDecimal valorTotalNoMes() {
+		Optional<BigDecimal> optional = Optional.ofNullable(manager
+				.createQuery("select sum(valorTotal) from Venda where month(dataCriacao) = :mes and status = :status",
+						BigDecimal.class)
+				.setParameter("status", StatusVenda.EMITIDO).setParameter("mes", MonthDay.now().getMonthValue())
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+
+	@Override
+	public BigDecimal valorTicketMedioAno() {
+		Optional<BigDecimal> optional = Optional.ofNullable(manager
+				.createQuery(
+						"select sum(valorTotal)/count(*) from Venda where year(dataCriacao) = :ano and status = :status",
+						BigDecimal.class)
+				.setParameter("status", StatusVenda.EMITIDO).setParameter("ano", Year.now().getValue())
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+
+	@Override
+	public Long totalClientes() {
+		Optional<Long> optional = Optional
+				.ofNullable((Long) manager.createQuery("select count(*) from Cliente").getSingleResult());
+		return optional.orElse(0l);
+	}
 }
