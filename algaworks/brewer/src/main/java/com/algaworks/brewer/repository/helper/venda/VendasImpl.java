@@ -133,4 +133,19 @@ public class VendasImpl implements VendasQueries {
 				.ofNullable((Long) manager.createQuery("select count(*) from Cliente").getSingleResult());
 		return optional.orElse(0l);
 	}
+
+	@Override
+	public Long totalItensNoEstoque() {
+		Optional<Long> optional = Optional
+				.ofNullable((Long) manager.createQuery("select sum(quantidadeEstoque) from Cerveja").getSingleResult());
+		return optional.orElse(0l);
+	}
+
+	@Override
+	public BigDecimal valorTotalDoEstoque() {
+		Optional<BigDecimal> optional = Optional.ofNullable(manager
+				.createQuery("select sum(quantidadeEstoque*valor) from Cerveja", BigDecimal.class)
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
 }

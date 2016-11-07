@@ -21,4 +21,8 @@ public interface VendasQueries {
 	public BigDecimal valorTicketMedioAno();
 	
 	public Long totalClientes();
+	
+	public Long totalItensNoEstoque();
+	
+	public BigDecimal valorTotalDoEstoque();
 }
