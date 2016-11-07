@@ -12,4 +12,6 @@ public interface ClientesQueries {
 	
 	public Cliente pesquisarClienteEditar(Cliente cliente);
 	
+	public Long totalClientes();
+	
 }

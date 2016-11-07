@@ -1,10 +1,12 @@
 package com.algaworks.brewer.repository.helper.venda;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.Year;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -23,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.filter.VendaFilter;
@@ -127,25 +130,22 @@ public class VendasImpl implements VendasQueries {
 		return optional.orElse(BigDecimal.ZERO);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Long totalClientes() {
-		Optional<Long> optional = Optional
-				.ofNullable((Long) manager.createQuery("select count(*) from Cliente").getSingleResult());
-		return optional.orElse(0l);
+	public List<VendaMes> totalPorMes() {
+		List<VendaMes> vendasMes = manager.createNamedQuery("Vendas.totalPorMes").getResultList();
+
+		LocalDate hoje = LocalDate.now();
+		for (int i = 1; i <= 6; i++) {
+			String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+
+			boolean possuiMes = vendasMes.stream().filter(y -> y.getMes().equals(mesIdeal)).findAny().isPresent();
+			if (!possuiMes) {
+				vendasMes.add(i - 1, new VendaMes(mesIdeal, 0));
+			}
+			hoje = hoje.minusMonths(1);
+		}
+		return vendasMes;
 	}
 
-	@Override
-	public Long totalItensNoEstoque() {
-		Optional<Long> optional = Optional
-				.ofNullable((Long) manager.createQuery("select sum(quantidadeEstoque) from Cerveja").getSingleResult());
-		return optional.orElse(0l);
-	}
-
-	@Override
-	public BigDecimal valorTotalDoEstoque() {
-		Optional<BigDecimal> optional = Optional.ofNullable(manager
-				.createQuery("select sum(quantidadeEstoque*valor) from Cerveja", BigDecimal.class)
-				.getSingleResult());
-		return optional.orElse(BigDecimal.ZERO);
-	}
 }

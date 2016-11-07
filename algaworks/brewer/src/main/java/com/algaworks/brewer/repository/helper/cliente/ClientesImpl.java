@@ -42,6 +42,21 @@ public class ClientesImpl implements ClientesQueries {
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
 
+	@Transactional
+	@Override
+	public Long totalClientes() {
+		return total(new ClienteFilter());
+	}
+	@Transactional
+	@Override
+	public Cliente pesquisarClienteEditar(Cliente cliente) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
+		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", cliente.getCodigo()));
+		return (Cliente) criteria.uniqueResult();
+	}
+
 	private Long total(ClienteFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
 		adicionarFiltro(filtro, criteria);
@@ -61,14 +76,5 @@ public class ClientesImpl implements ClientesQueries {
 		}
 	}
 
-	@Transactional
-	@Override
-	public Cliente pesquisarClienteEditar(Cliente cliente) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
-		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
-		criteria.add(Restrictions.eq("codigo", cliente.getCodigo()));
-		return (Cliente) criteria.uniqueResult();
-	}
 
 }
