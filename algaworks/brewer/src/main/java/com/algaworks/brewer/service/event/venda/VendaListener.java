@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.ItemVenda;
+import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.repository.Cervejas;
 
 @Component
@@ -16,10 +17,18 @@ public class VendaListener {
 
 	@EventListener
 	public void vendaEmitica(VendaEvent vendaEvent) {
-		for (ItemVenda item : vendaEvent.getVenda().getItens()) {
-			Cerveja cerveja = cervejas.findOne(item.getCerveja().getCodigo());
-			cerveja.setQuantidadeEstoque(cerveja.getQuantidadeEstoque() - item.getQuantidade());
-			cervejas.save(cerveja);
+		if (vendaEvent.getVenda().getStatus().equals(StatusVenda.EMITIDO)) {
+			for (ItemVenda item : vendaEvent.getVenda().getItens()) {
+				Cerveja cerveja = cervejas.findOne(item.getCerveja().getCodigo());
+				cerveja.setQuantidadeEstoque(cerveja.getQuantidadeEstoque() - item.getQuantidade());
+				cervejas.save(cerveja);
+			}
+		} else if (vendaEvent.getVenda().getStatus().equals(StatusVenda.CANCELADO)) {
+			for (ItemVenda item : vendaEvent.getVenda().getItens()) {
+				Cerveja cerveja = cervejas.findOne(item.getCerveja().getCodigo());
+				cerveja.setQuantidadeEstoque(cerveja.getQuantidadeEstoque() + item.getQuantidade());
+				cervejas.save(cerveja);
+			}
 		}
 	}
 }

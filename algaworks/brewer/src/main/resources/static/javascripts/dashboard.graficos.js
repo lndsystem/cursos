@@ -61,7 +61,7 @@ Brewer.GraficoVendaPorOrigem = (function() {
 		vendaOrigem.forEach(function(obj) {
 			meses.unshift(obj.mes);
 			cervejasNacionais.unshift(obj.totalNacional);
-			cervejasInternacionais.unshift(obj.totalInternacional);
+			cervejasInternacionas.unshift(obj.totalInternacional);
 		});
 		
 		var graficoVendasPorOrigem = new Chart(this.ctx, {
@@ -76,7 +76,7 @@ Brewer.GraficoVendaPorOrigem = (function() {
 				{
 					label: 'Internacional',
 					backgroundColor: 'rgba(26,179,148,0.5)',
-					data: cervejasInternacionais
+					data: cervejasInternacionas
 				}]
 			}
 		});

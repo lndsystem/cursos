@@ -59,5 +59,6 @@ public class CadastroVendaService {
 		vendaExistente.setStatus(StatusVenda.CANCELADO);
 		vendas.save(vendaExistente);
 		
+		publisher.publishEvent(new VendaEvent(vendaExistente));		
 	}
 }
