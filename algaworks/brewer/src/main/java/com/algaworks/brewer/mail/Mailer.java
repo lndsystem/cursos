@@ -41,7 +41,6 @@ public class Mailer {
 
 	@Async
 	public void enviar(Venda venda) {
-
 		Context context = new Context(new Locale("pt", "BR"));
 		context.setVariable("venda", venda);
 		context.setVariable("logo", "logo");
@@ -87,7 +86,6 @@ public class Mailer {
 		} catch (MessagingException e) {
 			logger.error("Erro enviando e-mail", e);
 		}
-
 	}
 
 	public void simple(Venda venda) {

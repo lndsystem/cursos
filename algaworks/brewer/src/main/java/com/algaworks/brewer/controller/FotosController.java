@@ -20,25 +20,20 @@ public class FotosController {
 
 	@Autowired
 	private FotoStorage fotoStorage;
-	
+
 	@PostMapping
 	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 
 		Thread thread = new Thread(new FotoStorageRunnable(files, resultado, fotoStorage));
 		thread.start();
-		
+
 		return resultado;
 	}
-	
-	@GetMapping("/temp/{nome:.*}")
-	public byte[] recuperarFotoTemporaria(@PathVariable String nome) {
-		return fotoStorage.recuperarFotoTemporaria(nome);
-	}
-	
+
 	@GetMapping("/{nome:.*}")
 	public byte[] recuperar(@PathVariable String nome) {
 		return fotoStorage.recuperar(nome);
 	}
-	
+
 }

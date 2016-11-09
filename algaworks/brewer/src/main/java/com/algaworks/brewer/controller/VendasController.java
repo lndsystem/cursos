@@ -29,6 +29,7 @@ import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.controller.validator.VendaValidator;
 import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.dto.VendaOrigem;
+import com.algaworks.brewer.mail.Mailer;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.ItemVenda;
 import com.algaworks.brewer.model.StatusVenda;
@@ -59,6 +60,9 @@ public class VendasController {
 
 	@Autowired
 	private Vendas vendas;
+
+	@Autowired
+	private Mailer mailer;
 
 	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
@@ -120,6 +124,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 
 		cadastroVendaService.salvar(venda);
+		mailer.enviar(venda);
+
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
