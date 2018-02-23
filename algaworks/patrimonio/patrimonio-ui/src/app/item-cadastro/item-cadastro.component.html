@@ -1,0 +1,13 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-dataTable [value]="itens">
+      <p-column field="etiqueta" header="Etiqueta"></p-column>
+      <p-column field="descricao" header="Descrição"></p-column>
+      <p-column header="Data Aquisição">
+        <ng-template pTemplate="body" let-item="rowData">
+          {{ item.dataAquisicao | date:'dd/MM/yyyy' }}
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </div>
+</div>
