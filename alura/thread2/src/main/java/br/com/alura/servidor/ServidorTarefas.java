@@ -18,7 +18,7 @@ public class ServidorTarefas {
 		System.out.println("--- Iniciando servidor ---");
 		this.estaRodando = new AtomicBoolean(true);
 		this.servidor = new ServerSocket(12345);
-		this.threadPool = Executors.newFixedThreadPool(4);  //newCachedThreadPool();
+		this.threadPool = Executors.newFixedThreadPool(4, new FabricaDeThreads());  //newCachedThreadPool();
 	}
 
 	/* 2. Rodando */
