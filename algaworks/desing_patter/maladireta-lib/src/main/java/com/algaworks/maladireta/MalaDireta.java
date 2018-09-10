@@ -5,12 +5,12 @@ import java.util.List;
 import com.algaworks.contato.Contato;
 import com.algaworks.contato.Contatos;
 
-public class MalaDireta {
+public abstract class MalaDireta {
 
-	public boolean enviarEmail(String nomeArquivo, String mensagem) {
+	protected abstract Contatos criarContatos();
 
-		Contatos contatosRepositorio = new Contatos();
-		List<Contato> contatos = contatosRepositorio.recuperarContatosCSV(nomeArquivo);
+	public boolean enviarEmail(String mensagem) {
+		List<Contato> contatos = criarContatos().todos();
 
 		System.out.println("Conectando no servidor SMTP...");
 		System.out.println("Mensagem a ser enviada: " + mensagem);
@@ -25,5 +25,4 @@ public class MalaDireta {
 
 		return true;
 	}
-
 }
