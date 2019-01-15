@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contatos>
+	<contato>
+		<nome>Ivan</nome>
+		<email>ivan@uol.com</email>
+	</contato>
+	<contato>
+		<nome>Dominiqui</nome>
+		<email>dominiqui@gmail.com</email>
+	</contato>
+	<contato>
+		<nome>Thomas</nome>
+		<email>thomas@gmail.com</email>
+	</contato>
+</contatos>
