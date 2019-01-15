@@ -47,8 +47,9 @@ public class ProdutoVendaTest {
 	public void deveCalcularValorTotalPedidoClienteVipComBuilder() {
 		PedidoVenda pedidoVenda = new PedidoVendaBuilder()
 				.comClienteVip("João Silva")
-				.comItem("Calculadora", 2, "200")
+				.comItem("Calculadora", 2, 200.0)
 				.comItem("Mochila", 1, "200")
+				.comDataEmissao("10/09/2018")
 				.comNumero("123")
 				.construir();
 

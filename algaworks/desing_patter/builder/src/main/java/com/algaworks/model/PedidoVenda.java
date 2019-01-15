@@ -1,6 +1,7 @@
 package com.algaworks.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class PedidoVenda {
@@ -8,6 +9,7 @@ public class PedidoVenda {
 	private String numero;
 	private Cliente cliente;
 	private List<ItemPedido> itensPedido;
+	private Date dataEmissao;
 
 	public String getNumero() {
 		return numero;
@@ -33,6 +35,14 @@ public class PedidoVenda {
 		this.itensPedido = itensPedido;
 	}
 
+	public Date getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
+
 	public BigDecimal getValorTotal() {
 		BigDecimal valorTotal = BigDecimal.ZERO;
 
@@ -40,7 +50,7 @@ public class PedidoVenda {
 			valorTotal = valorTotal.add(item.getValorUnitario().multiply(new BigDecimal(item.getQuantidade())));
 		}
 
-		//se o cliente for vip, 4% de desconto
+		// se o cliente for vip, 4% de desconto
 		if (cliente.isVip()) {
 			valorTotal = valorTotal.multiply(new BigDecimal("0.96"));
 		}

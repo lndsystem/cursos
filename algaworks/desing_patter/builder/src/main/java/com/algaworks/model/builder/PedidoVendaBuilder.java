@@ -1,6 +1,7 @@
 package com.algaworks.model.builder;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.algaworks.model.Cliente;
@@ -25,7 +26,16 @@ public class PedidoVendaBuilder {
 		return this;
 	}
 
-	public PedidoVendaBuilder comItem(String nome, Integer quantidade, String valorUnitario) {
+	public PedidoVendaBuilder comDataEmissao(String dataEmissao) {
+		try {
+			this.instance.setDataEmissao(new SimpleDateFormat("dd/MM/yyyy").parse(dataEmissao));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return this;
+	}
+
+	public PedidoVendaBuilder comItem(String nome, Integer quantidade, Double valorUnitario) {
 		ItemPedido item = new ItemPedido();
 		item.setNome(nome);
 		item.setQuantidade(quantidade);
@@ -37,6 +47,10 @@ public class PedidoVendaBuilder {
 		this.instance.getItensPedido().add(item);
 
 		return this;
+	}
+
+	public PedidoVendaBuilder comItem(String nome, Integer quantidade, String valorUnitario) {
+		return comItem(nome, quantidade, new BigDecimal(valorUnitario).doubleValue());
 	}
 
 	public PedidoVendaBuilderValido comNumero(String numero) {
