@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.hibcode.beerstore.error.ErrorResponse.ApiError;
+import com.hibcode.beerstore.service.exception.BusinessException;
 
 import lombok.RequiredArgsConstructor;
 
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class ApiExceptionHhandler {
@@ -31,7 +35,7 @@ public class ApiExceptionHhandler {
 	private final MessageSource apiErrorMessageSource;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErrorResponse> handerNotValidException(MethodArgumentNotValidException exception,
+	public ResponseEntity<ErrorResponse> handlerNotValidException(MethodArgumentNotValidException exception,
 			Locale locale) {
 		Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
 
@@ -43,8 +47,18 @@ public class ApiExceptionHhandler {
 		return ResponseEntity.badRequest().body(errorResponse);
 	}
 
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<ErrorResponse> handlerBusinessException(BusinessException exception, Locale locale) {
+		final String errorCode = exception.getCode();
+		final HttpStatus status = exception.getStatus();
+
+		final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale));
+		return ResponseEntity.status(status).body(errorResponse);
+	}
+
 	@ExceptionHandler(InvalidFormatException.class)
-	public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale) {
+	public ResponseEntity<ErrorResponse> handlerInvalidFormatException(InvalidFormatException exception,
+			Locale locale) {
 		final String errorCode = "generic-1";
 		final HttpStatus status = HttpStatus.BAD_REQUEST;
 		final ErrorResponse errorResponse = ErrorResponse.of(status,
@@ -53,7 +67,7 @@ public class ApiExceptionHhandler {
 		return ResponseEntity.badRequest().body(errorResponse);
 	}
 
-	private ApiError toApiError(String code, Locale locale, Object... args) {
+	protected ApiError toApiError(String code, Locale locale, Object... args) {
 		String message;
 		try {
 			message = apiErrorMessageSource.getMessage(code, args, locale);
@@ -61,8 +75,6 @@ public class ApiExceptionHhandler {
 			LOG.error("Could not find any message for {} code under {} locale", code, locale);
 			message = NO_MESSAGE_AVAILABLE;
 		}
-
 		return new ApiError(code, message);
 	}
-
 }
