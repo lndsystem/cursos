@@ -5,3 +5,7 @@ target/
 .project
 .settings
 .tern-project
+
+#Angular Modulos
+/node_modules
+node_modules/
