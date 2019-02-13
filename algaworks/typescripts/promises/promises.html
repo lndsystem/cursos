@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Premises</title>
+    </head>
+    <body>
+        <script>
+            const resposta = fetch('http://api.postmon.com.br/v1/ceb/09760000'); //devolve uma promises assincrona
+
+            resposta.then(data => data.json())
+                    .then(data => console.log(data))
+                    .catch(erro => console.log(erro));
+        </script>
+    </body>
+</html>
