@@ -1,0 +1,6 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/1-PrimeiroProjeto/bin/Debug/1-PrimeiroProjeto.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/1-PrimeiroProjeto/bin/Debug/1-PrimeiroProjeto.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/1-PrimeiroProjeto/obj/x86/Debug/1-PrimeiroProjeto.csprojAssemblyReference.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/1-PrimeiroProjeto/obj/x86/Debug/1-PrimeiroProjeto.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/1-PrimeiroProjeto/obj/x86/Debug/1-PrimeiroProjeto.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/1-PrimeiroProjeto/obj/x86/Debug/1-PrimeiroProjeto.pdb

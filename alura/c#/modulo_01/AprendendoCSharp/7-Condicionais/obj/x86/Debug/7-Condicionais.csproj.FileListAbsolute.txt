@@ -1,0 +1,5 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/7-Condicionais/obj/x86/Debug/7-Condicionais.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/7-Condicionais/bin/Debug/7-Condicionais.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/7-Condicionais/bin/Debug/7-Condicionais.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/7-Condicionais/obj/x86/Debug/7-Condicionais.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/7-Condicionais/obj/x86/Debug/7-Condicionais.pdb

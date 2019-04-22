@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{D34AA353-D904-4792-BDA0-23AF9553CC02}</ProjectGuid>
+    <ProjectGuid>{8078E4D8-83AF-482F-909A-086E4A13D94E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CalculaPoupanca</RootNamespace>
-    <AssemblyName>10-CalculaPoupanca</AssemblyName>
+    <RootNamespace>CriandoVariaveisPontoFlutuante</RootNamespace>
+    <AssemblyName>3-CriandoVariaveisPontoFlutuante</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

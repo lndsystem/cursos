@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{D34AA353-D904-4792-BDA0-23AF9553CC02}</ProjectGuid>
+    <ProjectGuid>{05F0D839-BC4A-4461-A2A8-D1D39B4E4928}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CalculaPoupanca</RootNamespace>
-    <AssemblyName>10-CalculaPoupanca</AssemblyName>
+    <RootNamespace>ByteBank</RootNamespace>
+    <AssemblyName>01-ByteBank</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,6 +34,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ContaCorrente.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

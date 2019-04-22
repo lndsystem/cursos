@@ -1,0 +1,5 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/4-ConversoesEOutrosTiposNumericos/bin/Debug/4-ConversoesEOutrosTiposNumericos.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/4-ConversoesEOutrosTiposNumericos/bin/Debug/4-ConversoesEOutrosTiposNumericos.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/4-ConversoesEOutrosTiposNumericos/obj/x86/Debug/4-ConversoesEOutrosTiposNumericos.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/4-ConversoesEOutrosTiposNumericos/obj/x86/Debug/4-ConversoesEOutrosTiposNumericos.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/4-ConversoesEOutrosTiposNumericos/obj/x86/Debug/4-ConversoesEOutrosTiposNumericos.pdb

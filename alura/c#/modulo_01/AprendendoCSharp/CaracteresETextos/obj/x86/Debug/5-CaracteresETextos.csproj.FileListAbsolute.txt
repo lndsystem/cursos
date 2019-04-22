@@ -1,0 +1,5 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/CaracteresETextos/bin/Debug/CaracteresETextos.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/CaracteresETextos/bin/Debug/CaracteresETextos.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/CaracteresETextos/obj/x86/Debug/5-CaracteresETextos.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/CaracteresETextos/obj/x86/Debug/CaracteresETextos.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/CaracteresETextos/obj/x86/Debug/CaracteresETextos.pdb

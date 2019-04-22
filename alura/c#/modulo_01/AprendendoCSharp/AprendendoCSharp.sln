@@ -1,0 +1,53 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1-PrimeiroProjeto", "1-PrimeiroProjeto\1-PrimeiroProjeto.csproj", "{A2D2BC2E-4371-4CA1-B558-45B379CD3B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2-CriandoVariavel", "2-CriandoVariavel\2-CriandoVariavel.csproj", "{8B02365F-56F6-4398-A0D0-5D4895552AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-CriandoVariaveisPontoFlutuante", "3-CriandoVariaveisPontoFlutuante\3-CriandoVariaveisPontoFlutuante.csproj", "{8078E4D8-83AF-482F-909A-086E4A13D94E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4-ConversoesEOutrosTiposNumericos", "4-ConversoesEOutrosTiposNumericos\4-ConversoesEOutrosTiposNumericos.csproj", "{ABD6189C-78D1-4780-912A-E12C63D08933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5-CaracteresETextos", "CaracteresETextos\5-CaracteresETextos.csproj", "{EB23A9EE-F59F-4C80-A1C9-7FE880DC43DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7-Condicionais", "7-Condicionais\7-Condicionais.csproj", "{50489992-9983-4384-A96B-16C626EF0D49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10-CalculaPoupanca", "10-CalculaPoupanca\10-CalculaPoupanca.csproj", "{D34AA353-D904-4792-BDA0-23AF9553CC02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2D2BC2E-4371-4CA1-B558-45B379CD3B7D}.Debug|x86.ActiveCfg = Debug|x86
+		{A2D2BC2E-4371-4CA1-B558-45B379CD3B7D}.Debug|x86.Build.0 = Debug|x86
+		{A2D2BC2E-4371-4CA1-B558-45B379CD3B7D}.Release|x86.ActiveCfg = Release|x86
+		{A2D2BC2E-4371-4CA1-B558-45B379CD3B7D}.Release|x86.Build.0 = Release|x86
+		{8B02365F-56F6-4398-A0D0-5D4895552AED}.Debug|x86.ActiveCfg = Debug|x86
+		{8B02365F-56F6-4398-A0D0-5D4895552AED}.Debug|x86.Build.0 = Debug|x86
+		{8B02365F-56F6-4398-A0D0-5D4895552AED}.Release|x86.ActiveCfg = Release|x86
+		{8B02365F-56F6-4398-A0D0-5D4895552AED}.Release|x86.Build.0 = Release|x86
+		{8078E4D8-83AF-482F-909A-086E4A13D94E}.Debug|x86.ActiveCfg = Debug|x86
+		{8078E4D8-83AF-482F-909A-086E4A13D94E}.Debug|x86.Build.0 = Debug|x86
+		{8078E4D8-83AF-482F-909A-086E4A13D94E}.Release|x86.ActiveCfg = Release|x86
+		{8078E4D8-83AF-482F-909A-086E4A13D94E}.Release|x86.Build.0 = Release|x86
+		{ABD6189C-78D1-4780-912A-E12C63D08933}.Debug|x86.ActiveCfg = Debug|x86
+		{ABD6189C-78D1-4780-912A-E12C63D08933}.Debug|x86.Build.0 = Debug|x86
+		{ABD6189C-78D1-4780-912A-E12C63D08933}.Release|x86.ActiveCfg = Release|x86
+		{ABD6189C-78D1-4780-912A-E12C63D08933}.Release|x86.Build.0 = Release|x86
+		{EB23A9EE-F59F-4C80-A1C9-7FE880DC43DC}.Debug|x86.ActiveCfg = Debug|x86
+		{EB23A9EE-F59F-4C80-A1C9-7FE880DC43DC}.Debug|x86.Build.0 = Debug|x86
+		{EB23A9EE-F59F-4C80-A1C9-7FE880DC43DC}.Release|x86.ActiveCfg = Release|x86
+		{EB23A9EE-F59F-4C80-A1C9-7FE880DC43DC}.Release|x86.Build.0 = Release|x86
+		{50489992-9983-4384-A96B-16C626EF0D49}.Debug|x86.ActiveCfg = Debug|x86
+		{50489992-9983-4384-A96B-16C626EF0D49}.Debug|x86.Build.0 = Debug|x86
+		{50489992-9983-4384-A96B-16C626EF0D49}.Release|x86.ActiveCfg = Release|x86
+		{50489992-9983-4384-A96B-16C626EF0D49}.Release|x86.Build.0 = Release|x86
+		{D34AA353-D904-4792-BDA0-23AF9553CC02}.Debug|x86.ActiveCfg = Debug|x86
+		{D34AA353-D904-4792-BDA0-23AF9553CC02}.Debug|x86.Build.0 = Debug|x86
+		{D34AA353-D904-4792-BDA0-23AF9553CC02}.Release|x86.ActiveCfg = Release|x86
+		{D34AA353-D904-4792-BDA0-23AF9553CC02}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{D34AA353-D904-4792-BDA0-23AF9553CC02}</ProjectGuid>
+    <ProjectGuid>{A2D2BC2E-4371-4CA1-B558-45B379CD3B7D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CalculaPoupanca</RootNamespace>
-    <AssemblyName>10-CalculaPoupanca</AssemblyName>
+    <RootNamespace>PrimeiroProjeto</RootNamespace>
+    <AssemblyName>1-PrimeiroProjeto</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

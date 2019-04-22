@@ -1,0 +1,5 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/2-CriandoVariavel/bin/Debug/2-CriandoVariavel.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/2-CriandoVariavel/bin/Debug/2-CriandoVariavel.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/2-CriandoVariavel/obj/x86/Debug/2-CriandoVariavel.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/2-CriandoVariavel/obj/x86/Debug/2-CriandoVariavel.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/2-CriandoVariavel/obj/x86/Debug/2-CriandoVariavel.pdb

@@ -1,0 +1,5 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/10-CalculaPoupanca/bin/Debug/10-CalculaPoupanca.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/10-CalculaPoupanca/bin/Debug/10-CalculaPoupanca.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/10-CalculaPoupanca/obj/x86/Debug/10-CalculaPoupanca.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/10-CalculaPoupanca/obj/x86/Debug/10-CalculaPoupanca.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/10-CalculaPoupanca/obj/x86/Debug/10-CalculaPoupanca.pdb

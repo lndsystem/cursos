@@ -1,0 +1,5 @@
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/3-CriandoVariaveisPontoFlutuante/bin/Debug/3-CriandoVariaveisPontoFlutuante.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/3-CriandoVariaveisPontoFlutuante/bin/Debug/3-CriandoVariaveisPontoFlutuante.pdb
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/3-CriandoVariaveisPontoFlutuante/obj/x86/Debug/3-CriandoVariaveisPontoFlutuante.csproj.CoreCompileInputs.cache
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/3-CriandoVariaveisPontoFlutuante/obj/x86/Debug/3-CriandoVariaveisPontoFlutuante.exe
+/opt/fontes_git/cursos/alura/c#/modulo_01/AprendendoCSharp/3-CriandoVariaveisPontoFlutuante/obj/x86/Debug/3-CriandoVariaveisPontoFlutuante.pdb

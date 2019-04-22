@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{D34AA353-D904-4792-BDA0-23AF9553CC02}</ProjectGuid>
+    <ProjectGuid>{8B02365F-56F6-4398-A0D0-5D4895552AED}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CalculaPoupanca</RootNamespace>
-    <AssemblyName>10-CalculaPoupanca</AssemblyName>
+    <RootNamespace>CriandoVariavel</RootNamespace>
+    <AssemblyName>2-CriandoVariavel</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
