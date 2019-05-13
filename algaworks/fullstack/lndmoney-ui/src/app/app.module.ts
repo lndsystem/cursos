@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { TooltipModule } from "primeng/components/tooltip/tooltip";
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PessoalPesquisaComponent } from './pessoal-pesquisa/pessoal-pesquisa.component';
+import { CampoColoridoDirective } from './directives/campo-colorido.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LancamentosPesquisaComponent,
-    NavbarComponent
+    NavbarComponent,
+    PessoalPesquisaComponent,
+    CampoColoridoDirective
   ],
   imports: [
     BrowserModule,
