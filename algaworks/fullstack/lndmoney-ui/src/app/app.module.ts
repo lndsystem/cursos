@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
-import { TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { AppComponent } from './app.component';
 import { TooltipModule } from "primeng/components/tooltip/tooltip";
@@ -10,6 +10,9 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoalPesquisaComponent } from './pessoal-pesquisa/pessoal-pesquisa.component';
 import { CampoColoridoDirective } from './directives/campo-colorido.directive';
+import { TestesComponent } from './testes/testes.component';
+import { FormTesteComponent } from './form-teste/form-teste.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { CampoColoridoDirective } from './directives/campo-colorido.directive';
     LancamentosPesquisaComponent,
     NavbarComponent,
     PessoalPesquisaComponent,
-    CampoColoridoDirective
+    CampoColoridoDirective,
+    TestesComponent,
+    FormTesteComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,8 @@ import { CampoColoridoDirective } from './directives/campo-colorido.directive';
     ButtonModule,
     TableModule,
     TooltipModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,10 +5,15 @@
     </div>
     <div class="ui-g-12  ui-fluid">
       <label>Nome</label>
-      <input type="text" pInputText/>
+      <input type="text" pInputText appCampoColorido [cor]="'yellow'" #campo="campoColorido"/>
+      <!-- Quando colocar entre cochetes, o valor deve estar entre aspas simples, não estiver -->
+      <!-- o typescrip considera como uma variavel do seu componente -->
+      <!--<input type="text" pInputText appCampoColorido [cor]="'yellow'"  ou  cor="yellow"/>-->
     </div>
     <div class="ui-g-12">
       <button pButton type="button" label="Pesquisar" ></button>
+      <button pButton type="button" label="Colorir" (click)="campo.colorir()"></button>
+      <button pButton type="button" label="Descolorir" (click)="campo.descolorir()" ></button>
     </div>
   </div>
   <div class="ui-g">
