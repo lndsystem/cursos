@@ -1,0 +1,23 @@
+spring:
+   jpa:
+      show-sql: false
+      hibernate:
+         ddl-auto: none
+         naming:
+           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+           implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+   properties:
+      hibernate:
+         format_sql: false
+         SQL: debug
+         type:
+            descriptor:
+               sql: trace       
+   datasource:
+      url: jdbc:mysql://localhost:3306/envelope
+      username: root
+      password: '!Julho2@18'
+   thymeleaf:
+      suffix: .html
+   application: 
+      name: Bootstrap Spring Boot

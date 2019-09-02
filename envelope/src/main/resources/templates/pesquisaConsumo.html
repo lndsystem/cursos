@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/template.html}">
+    <head>
+    </head>
+	<body>
+		<section layout:fragment="conteudo">
+			<div class="page-header">
+				<h1><small>Pesquisa Consumo</small></h1>
+			</div>
+			<form method="GET" th:object="${consumoFilter}">
+				<div class="row" style="padding-bottom: 30px">
+					  <div class="form-group  col-sm-4" >
+					    <label for="txtColor">Cor</label>
+					    <select id="txtColor" class="form-control" th:field="*{color}">
+					    	<option value="">Selecione...</option>
+					    	<option th:each="cor : ${comboColor}" th:value="${cor.id}" th:text="${cor.descricao}">
+					    </select>			    
+					  </div>
+				  
+					  <div class="form-group  col-sm-4">
+					    <label for="txtGramatura">Gramatura</label>
+					    <select id="txtGramatura" class="form-control" th:field="*{gramatura}">
+					    	<option value="">Selecione...</option>
+					    	<option th:each="gram : ${comboGramatura}" th:value="${gram.id}" th:text="${gram.descricao}">
+					    </select>			    
+					  </div>
+				  
+					  <div class="form-group  col-sm-4">
+					    <label for="txtTamanho">Tamanho</label>
+					    <select id="txtTamanho" class="form-control" th:field="*{tamanho}">
+					    	<option value="">Selecione...</option>
+					    	<option th:each="tam : ${comboTamanho}" th:value="${tam.id}" th:text="${tam.descricao}">
+					    </select>			    
+					  </div>
+					<div class="col-sm-12">
+						<button class="btn btn-primary  js-pesquisar">Pesquisar</button>
+					</div>
+				</div>
+			</form>
+			<div>
+				<table id="example" class="table table-hover table-condensed table-bordered display">
+					<thead>
+						<tr>
+							<th style="width: 200px">Descrição</th>
+							<th>Projeto</th>
+							<th class="text-center">Até 1.000</th>						
+							<th class="text-center">Até 5.000</th>
+							<th class="text-center">Até 15.000</th>
+							<th class="text-center">Até 30.000</th>
+							<th class="text-center">Até 50.000</th>
+							<th class="text-center">Até 70.000</th>
+							<th class="text-center">Até 100.000</th>
+							<th class="text-center">Até 300.000</th>
+							<th class="text-center">Até 500.000</th>
+							<th class="text-center">Até 750.000</th>
+							<th class="text-center">Até 1.000.000</th>
+							<th class="text-center">Até 2.000.000</th>
+							<th class="text-center">Até 3.000.000</th>
+							<th class="text-center">Superior 3.000.000</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="consumo : ${listaConsumo}">
+							<td th:text="|Env. ${consumo.tamanho} ${consumo.gramatura} ${consumo.cor}|"></td>
+							<td class="text-center" th:text="${consumo.projeto}">
+							<td th:each="vlr : ${consumo.valores}" th:text="${vlr.qtd}" th:title="${vlr.valor}"  class="text-center"></td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(listaConsumo)}">
+							<td colspan="16">Nenhum registros localizado!</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</body>        
+</html>
