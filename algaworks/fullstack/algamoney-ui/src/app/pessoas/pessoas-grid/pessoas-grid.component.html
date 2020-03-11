@@ -1,0 +1,32 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-dataTable [value]="pessoas" [paginator]="true" [rows]="2" [responsive]="true">
+      <p-column field="nome" header="Nome"></p-column>
+      <p-column field="cidade" header="Cidade"></p-column>
+      <p-column field="estado" header="Estado"></p-column>
+      <p-column field="nome" header="Status">
+        <ng-template pTemplate let-pes="rowData" pTemplate="body">
+          <!--Modo porco de fazer-->
+          <!--<a *ngIf="pes.ativo" href="#" pTooltip="Desativar" tooltipPosition="top">Ativo</a>
+          <a *ngIf="!pes.ativo" href="#" pTooltip="Ativar" tooltipPosition="top">Inativo</a>-->
+
+          <!-- Modo suggar de fazer -->
+          <a href="javascript:;" [pTooltip]="pes.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top">
+            {{pes.ativo ? 'Ativo' : 'Inativo'}}
+          </a>
+        </ng-template>
+      </p-column>
+
+      <p-column styleClass="col-acoes">
+        <ng-template pTemplate="body">
+          <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+          <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </div>
+</div>
+
+<div class="ui-g-12">
+  <a pButton label="Novo Pessoa"></a>
+</div>
