@@ -1,18 +1,58 @@
 <div class="container">
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>Pessoas</h1>
+      </div>
+
+      <div class="ui-g-12 ui-md-10 ui-fluid">
+        <label for="">Nome</label>
+        <input pInputText type="text" name="nome" [(ngModel)]="filtro.nome">
+      </div>
+
+      <div class="ui-g-12 ui-md-2  ui-fluid">
+        <label for="">UF</label>
+        <input pInputText type="text" name="uf" [(ngModel)]="filtro.uf">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+    </div>
+  </form>
+
+  <!--<app-pessoas-grid [pessoas]="pessoas"></app-pessoas-grid>-->
   <div class="ui-g">
     <div class="ui-g-12">
-      <h1>Pessoas</h1>
-    </div>
+      <p-dataTable [value]="pessoas" [paginator]="true" [rows]="filtro.itensPorPagina" [responsive]="true"
+        [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
+        <p-column field="nome" header="Nome"></p-column>
+        <p-column field="endereco.cidade" header="Cidade"></p-column>
+        <p-column field="endereco.estado" header="Estado"></p-column>
+        <p-column field="nome" header="Status">
+          <ng-template pTemplate let-pes="rowData" pTemplate="body">
+            <!--Modo porco de fazer-->
+            <!--<a *ngIf="pes.ativo" href="#" pTooltip="Desativar" tooltipPosition="top">Ativo</a>
+            <a *ngIf="!pes.ativo" href="#" pTooltip="Ativar" tooltipPosition="top">Inativo</a>-->
 
-    <div class="ui-g-12  ui-fluid">
-      <label for="">Nome</label>
-      <input pInputText type="text">
-    </div>
+            <!-- Modo suggar de fazer -->
+            <a href="javascript:;" [pTooltip]="pes.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top">
+              {{pes.ativo ? 'Ativo' : 'Inativo'}}
+            </a>
+          </ng-template>
+        </p-column>
 
-    <div class="ui-g-12">
-      <button pButton type="submit" label="Pesquisar"></button>
+        <p-column styleClass="col-acoes">
+          <ng-template pTemplate="body">
+            <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+          </ng-template>
+        </p-column>
+      </p-dataTable>
     </div>
   </div>
 
-  <app-pessoas-grid [pessoas]="pessoas"></app-pessoas-grid>
+  <div class="ui-g-12">
+    <a pButton label="Novo Pessoa"></a>
+  </div>
 </div>

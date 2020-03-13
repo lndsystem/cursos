@@ -60,7 +60,7 @@ public class PessoaRepositoryImpl extends PaginacaoUtil implements PessoaReposit
 	private Predicate[] adicionarPredicates(PessoaFilter pessoaFilter, CriteriaBuilder builder, Root<Pessoa> root) {
 		List<Predicate> precidates = new ArrayList<Predicate>();
 		if (StringUtils.isNotBlank(pessoaFilter.getNome()))
-			precidates.add(builder.like(builder.lower(root.get(Pessoa_.nome)), pessoaFilter.getNome().toLowerCase()));
+			precidates.add(builder.like(builder.lower(root.get(Pessoa_.nome)), "%" + pessoaFilter.getNome().toLowerCase() + "%"));
 
 		if (StringUtils.isNotBlank(pessoaFilter.getUf()))
 			precidates.add(builder.equal(builder.lower(root.get(Pessoa_.endereco).get(Endereco_.estado)), pessoaFilter.getUf().toLowerCase()));

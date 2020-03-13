@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="ui-g">
-    <form autocomplete="off" (ngSubmit)="pesquisar()">
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <div class="ui-g">
       <div class="ui-g-12">
         <h1>Lançamentos</h1>
       </div>
@@ -20,13 +20,13 @@
       <div class="ui-g-12">
         <button pButton type="submit" label="Pesquisar"></button>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 
   <div class="ui-g">
     <div class="ui-g-12">
       <p-dataTable [value]="lancamentos" [paginator]="true" [rows]="filtro.itensPorPagina" [responsive]="true"
-        [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
+        [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
         <p-column field="pessoa" header="Pessoa"></p-column>
         <p-column field="descricao" header="Descrição"></p-column>
         <p-column field="dataVencimento" header="Vencimento" styleClass="col-data">
@@ -46,9 +46,9 @@
           </ng-template>
         </p-column>
         <p-column styleClass="col-acoes">
-          <ng-template pTemplate="body">
+          <ng-template let-lanc="rowData" pTemplate="body">
             <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top" (click)="excluir(lanc)"></button>
           </ng-template>
         </p-column>
       </p-dataTable>
