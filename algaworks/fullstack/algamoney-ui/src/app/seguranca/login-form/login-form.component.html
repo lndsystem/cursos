@@ -1,0 +1,23 @@
+<div class="container" style="max-width: 400px; margin: auto">
+
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-fluid">
+      <h1>Login</h1>
+    </div>
+
+    <form #formLogin="ngForm">
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <input pInputText type="email" name="email" required ngModel #email="ngModel">
+      </div>
+
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <input pPassword type="password" name="senha" required ngModel #password="ngModel">
+      </div>
+
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <button pButton type="submit" label="Login" [disabled]="formLogin.invalid"
+          (click)="login(email.value, password.value); password.value = '';"></button>
+      </div>
+    </form>
+  </div>
+</div>
