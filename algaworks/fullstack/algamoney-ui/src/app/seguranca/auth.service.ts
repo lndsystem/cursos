@@ -57,9 +57,14 @@ export class AuthService {
         return Promise.resolve(null);
       })
       .catch(response => {
-        console.log('Erro ao renovar token.', response);
+        console.log('Erro ao renovar token.');
         return Promise.resolve(null);
       });
+  }
+
+  limparAccessToken() {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
   }
 
   isAccessTokenInvalido() {
@@ -69,6 +74,15 @@ export class AuthService {
 
   temPermissao(permissao: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+  }
+
+  temQualquerPermissao(roles) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private armazenarToken(token: string) {

@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'app/seguranca/auth.service';
+import { AuthGuard } from 'app/seguranca/auth.guard';
+import { NaoAutorizadoComponent } from './nao-autorizado.compenent';
 
 @NgModule({
   imports: [
@@ -24,7 +26,7 @@ import { AuthService } from 'app/seguranca/auth.service';
     ToastyModule.forRoot(),
     ConfirmDialogModule,
   ],
-  declarations: [NavbarComponent, PaginaNaoEncontradaComponent],
+  declarations: [NavbarComponent, PaginaNaoEncontradaComponent, NaoAutorizadoComponent],
   exports: [
     NavbarComponent,
     ToastyModule,
@@ -39,6 +41,7 @@ import { AuthService } from 'app/seguranca/auth.service';
     Title,
     { provide: LOCALE_ID, useValue: 'pt-BR'},
     AuthService,
+    AuthGuard,
 
     ErrorHandlerService
   ]
