@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,11 +41,13 @@ public class PessoaResource {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISA_PESSOA') and #oauth2.hasScope('read')")
 	public Page<Pessoa> listar(PessoaFilter pessoaFilter, Pageable pageable) {
 		return pessoaRepository.filtrar(pessoaFilter, pageable);
 	}
 
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISA_PESSOA') and #oauth2.hasScope('read')")
 	public ResponseEntity<?> salvar(@RequestBody @Valid Pessoa pessoa, HttpServletResponse response) {
 		Pessoa save = pessoaRepository.save(pessoa);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, save.getCodigo()));
@@ -52,22 +55,26 @@ public class PessoaResource {
 	}
 
 	@GetMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISA_PESSOA') and #oauth2.hasScope('read')")
 	public ResponseEntity<?> findOne(@PathVariable Long codigo) {
 		return ResponseEntity.ok(pessoaRepository.findById(codigo).orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@DeleteMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		pessoaRepository.deleteById(codigo);
 	}
 
 	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
 		return ResponseEntity.ok(pessoaService.atualizar(codigo, pessoa));
 	}
 
 	@PutMapping("/{codigo}/ativo")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
 		pessoaService.atualizarPropriedade(codigo, ativo);
 	}

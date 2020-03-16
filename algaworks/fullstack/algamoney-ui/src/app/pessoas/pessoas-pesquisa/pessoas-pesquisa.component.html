@@ -25,7 +25,7 @@
   <div class="ui-g">
     <div class="ui-g-12">
       <p-dataTable [value]="pessoas" [paginator]="true" [rows]="filtro.itensPorPagina" [responsive]="true"
-        [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
+        [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
         <p-column field="nome" header="Nome"></p-column>
         <p-column field="endereco.cidade" header="Cidade"></p-column>
         <p-column field="endereco.estado" header="Estado"></p-column>
@@ -36,16 +36,16 @@
             <a *ngIf="!pes.ativo" href="#" pTooltip="Ativar" tooltipPosition="top">Inativo</a>-->
 
             <!-- Modo suggar de fazer -->
-            <a href="javascript:;" [pTooltip]="pes.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top">
+            <a href="javascript:;" [pTooltip]="pes.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" (click)="mudarStatus(pes)">
               {{pes.ativo ? 'Ativo' : 'Inativo'}}
             </a>
           </ng-template>
         </p-column>
 
         <p-column styleClass="col-acoes">
-          <ng-template pTemplate="body">
-            <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+          <ng-template let-pes="rowData" pTemplate="body">
+            <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas', pes.codigo]"></a>
+            <button pButton icon="fa-trash" pTooltip="Excluir" (click)="excluir(pes)" tooltipPosition="top"></button>
           </ng-template>
         </p-column>
       </p-dataTable>
@@ -53,6 +53,6 @@
   </div>
 
   <div class="ui-g-12">
-    <a pButton label="Novo Pessoa"></a>
+    <a pButton label="Novo Pessoa" routerLink="/pessoas/novo"></a>
   </div>
 </div>

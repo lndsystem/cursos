@@ -17,6 +17,7 @@ import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pe
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { SharedModule } from 'app/shared/shared.module';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 
 @NgModule({
   imports: [
@@ -33,16 +34,14 @@ import { SharedModule } from 'app/shared/shared.module';
     DropdownModule,
     CurrencyMaskModule,
 
-    SharedModule
+    SharedModule,
+    LancamentosRoutingModule
   ],
   declarations: [
     LancamentoCadastroComponent,
     LancamentoPesquisaComponent,
     LancamentosGridComponent
   ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentoPesquisaComponent
-  ]
+  exports: []
 })
 export class LancamentosModule { }

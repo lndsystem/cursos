@@ -12,6 +12,7 @@ import { PessoasCadastroComponent } from './pessoas-cadastro/pessoas-cadastro.co
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { SharedModule } from 'app/shared/shared.module';
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 @NgModule({
   imports: [
@@ -24,16 +25,14 @@ import { SharedModule } from 'app/shared/shared.module';
     DataTableModule,
     InputTextModule,
 
-    SharedModule
+    SharedModule,
+    PessoasRoutingModule
   ],
   declarations: [
     PessoasCadastroComponent,
     PessoasPesquisaComponent,
     PessoasGridComponent
   ],
-  exports: [
-    PessoasCadastroComponent,
-    PessoasPesquisaComponent
-  ]
+  exports: []
 })
 export class PessoasModule { }

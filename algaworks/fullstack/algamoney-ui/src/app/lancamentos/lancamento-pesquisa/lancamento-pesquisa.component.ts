@@ -1,9 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
+import { Title } from '@angular/platform-browser';
+import { AuthService } from 'app/seguranca/auth.service';
 
 @Component({
   selector: 'app-lancamento-pesquisa',
@@ -11,7 +13,7 @@ import { ErrorHandlerService } from 'app/core/error-handler.service';
   styleUrls: ['./lancamento-pesquisa.component.css']
 })
 
-export class LancamentoPesquisaComponent {
+export class LancamentoPesquisaComponent implements OnInit{
 
   lancamentos = [];
   totalRegistros = 0;
@@ -22,8 +24,14 @@ export class LancamentoPesquisaComponent {
     private lancamentoService: LancamentoService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
-    private error: ErrorHandlerService
+    private error: ErrorHandlerService,
+    private auth: AuthService,
+    private title: Title
   ) { }
+
+  ngOnInit() {
+    this.title.setTitle('Pesquisa de lançamentos');
+  }
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
@@ -47,7 +55,7 @@ export class LancamentoPesquisaComponent {
       accept: () => {
         this.lancamentoService.excluir(lancamento.codigo)
           .then(() => {
-            if (this.grid.first === 0){
+            if (this.grid.first === 0) {
               this.pesquisar();
             } else {
               this.grid.first = 0;

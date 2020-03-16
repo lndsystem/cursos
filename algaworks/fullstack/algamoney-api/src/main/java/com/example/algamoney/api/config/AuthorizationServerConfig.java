@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -24,8 +25,8 @@ import com.example.algamoney.api.config.token.CustomTokenEnhancer;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-//	@Autowired
-//	private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -34,17 +35,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory() //
 				.withClient("angular") //
-				.secret("$2a$10$G1j5Rf8aEEiGc/AET9BA..xRR.qCpOUzBZoJd8ygbGy6tb3jsMT9G" /* "@ngul@r0" */) //
+				.secret("$2a$10$G1j5Rf8aEEiGc/AET9BA..xRR.qCpOUzBZoJd8ygbGy6tb3jsMT9G") // /*"@ngul@r0"*/
 				.scopes("read", "write") //
 				.authorizedGrantTypes("password", "refresh_token") //
-				.accessTokenValiditySeconds(1800) //
+				.accessTokenValiditySeconds(5) //
 				.refreshTokenValiditySeconds(3200 * 24) //
 				.and() //
 				.withClient("mobile") //
-				.secret("$2a$10$G1j5Rf8aEEiGc/AET9BA..xRR.qCpOUzBZoJd8ygbGy6tb3jsMT9G" /* "@ngul@r0" */) //
+				.secret("$2a$10$G1j5Rf8aEEiGc/AET9BA..xRR.qCpOUzBZoJd8ygbGy6tb3jsMT9G") // /* "@ngul@r0" */
 				.scopes("read") //
 				.authorizedGrantTypes("password", "refresh_token") //
-				.accessTokenValiditySeconds(1800) //
+				.accessTokenValiditySeconds(5) //
 				.refreshTokenValiditySeconds(3200 * 24);
 
 	}
@@ -57,7 +58,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints //
 				.tokenStore(tokenStore()) //
 				// .accessTokenConverter(accessTokenConverter()) //
-				// .userDetailsService(this.userDetailsService) //
+				.userDetailsService(this.userDetailsService) //
 				.tokenEnhancer(tokenEnhancerChain) //
 				.reuseRefreshTokens(false) //
 				.authenticationManager(authenticationManager);
