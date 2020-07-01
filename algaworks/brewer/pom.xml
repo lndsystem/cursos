@@ -17,7 +17,7 @@
 		<flyway-maven-plugin.version>4.0.3</flyway-maven-plugin.version>
 
 		<!-- JDBC / Connection -->
-		<mysql-connector-java.version>5.1.39</mysql-connector-java.version>
+		<mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
 		<!-- Ignorar a inexistencia do web.xml -->
 		<failOnMissingWebXml>false</failOnMissingWebXml>
